@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using DAL.BaseEntity;
 
-namespace Beauty.Entities
+namespace DAL.Entities
 {
-    public class Payment : BaseEntity
+    public class Payment : BaseEntity.BaseEntity
     {
         public int PaymentId { get; set; }
 
-        public virtual Appointment AppointmentId { get; set; }
+        public int AppointmentId { get; set; }
+
+        public virtual Appointment Appointment { get; set; }
 
         public double Amount { get; set; }
 

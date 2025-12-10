@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using DAL.BaseEntity;
 
-namespace Beauty.Entities
+namespace DAL.Entities
 {
-    public class Service : BaseEntity
+    public class Service : BaseEntity.BaseEntity
     {
         public int ServiceId { get; set; }
 
@@ -17,6 +16,6 @@ namespace Beauty.Entities
 
         public double BasePrice { get; set; }
 
-        public float Duration { get; set; }
+        public int Duration { get; set; }
     }
 }

@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using DAL.BaseEntity;
 
-namespace Beauty.Entities
+namespace DAL.Entities
 {
-    public class MasterService : BaseEntity
+    public class MasterService : BaseEntity.BaseEntity
     {
         public int MasterServiceId { get; set; }
 
-        public virtual Master MasterId { get; set; }
+        public int MasterId { get; set; }
 
-        public virtual Service ServiceId { get; set; }
+        public int ServiceId { get; set; }
 
-        public double PriceOverrride { get; set; }
+        public virtual Master Master { get; set; }
+
+        public virtual Service Service { get; set; }
+
+        public double? PriceOverride { get; set; }
 
     }
 }

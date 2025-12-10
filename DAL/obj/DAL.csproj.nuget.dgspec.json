@@ -48,6 +48,18 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.5.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
               "version": "[5.0.0, )"
             }
           },

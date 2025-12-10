@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using DAL.BaseEntity;
 
-namespace Beauty.Entities
+namespace DAL.Entities
 {
-    public class Master : BaseEntity
+    public class Master : BaseEntity.BaseEntity
     {
         public int MasterId { get; set; }
 
-        public virtual User UserId { get; set; }
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
 
         public string Specialization { get; set; }
 

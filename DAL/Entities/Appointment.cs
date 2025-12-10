@@ -1,21 +1,26 @@
-﻿using DAL.BaseEntity;
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Beauty.Entities
+namespace DAL.Entities
 {
-    public class Appointment : BaseEntity
+    public class Appointment : BaseEntity.BaseEntity
     {
         public int AppointmentId { get; set; }
 
-        public virtual Client ClientId { get; set; }
+        public int ClientId { get; set; }
 
-        public virtual Master MasterId { get; set; }
+        public int MasterId { get; set; }
 
-        public virtual Service ServiceId { get; set; }
+        public int ServiceId { get; set; }
+
+        public virtual Client Client { get; set; }
+
+        public virtual Master Master { get; set; }
+
+        public virtual Service Service { get; set; }
 
         public DateTime StartTime { get; set; }
 
