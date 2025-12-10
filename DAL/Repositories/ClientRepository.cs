@@ -1,5 +1,8 @@
-﻿using DAL.Entities;
+﻿using DAL.Context;
+using DAL.Entities;
 using DAL.Interfaces;
+
+using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
@@ -9,21 +12,25 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    class ClientRepository : GenericRepository<Client>, IClientRepository
+    public class ClientRepository : GenericRepository<Client>, IClientRepository
     {
-        public Task<Client> GetByUserIdAsync(int userId)
+        public ClientRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public Task<List<Client>> GetClientsWithNotesAsync()
+        public async Task<Client> GetByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Include(c => c.User).FirstOrDefaultAsync(c => c.UserId == userId);
         }
 
-        public Task<Client> GetClientWithUserAsync(int clientId)
+        public async Task<List<Client>> GetClientsWithNotesAsync()
         {
-            throw new NotImplementedException();
+            return await _dbSet.Where(c => !string.IsNullOrEmpty(c.Notes)).Include(c => c.User).ToListAsync();
+        }
+
+        public async Task<Client> GetClientWithUserAsync(int clientId)
+        {
+            return await _dbSet.Include(c => c.User).FirstOrDefaultAsync(c => c.ClientId == clientId);
         }
     }
 }

@@ -4,21 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Context;
 using DAL.Entities;
 using DAL.Interfaces;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
     class ServiceRepository : GenericRepository<Service>, IServiceRepository
     {
-        public Task<Service> GetByNameAsync(string name)
+        public ServiceRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public Task<List<Service>> GetServicesByMaxDurationAsync(int maxDuration)
+        public async Task<Service> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FirstOrDefaultAsync(s => s.Name == name);
+        }
+
+        public async Task<List<Service>> GetServicesByMaxDurationAsync(int maxDuration)
+        {
+            return await _dbSet.Where(s => s.Duration <= maxDuration).ToListAsync();
         }
     }
 }

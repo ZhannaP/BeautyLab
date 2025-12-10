@@ -4,31 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Context;
 using DAL.Entities;
 using DAL.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace DAL.Repositories
 {
-    class MasterRepository : GenericRepository<Master>, IMasterRepository
+    public class MasterRepository : GenericRepository<Master>, IMasterRepository
     {
-        public Task<Master> GetByUserIdAsync(int userId)
+        public MasterRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public Task<List<Master>> GetMastersBySpecializationAsync(string specialization)
+        public async Task<Master> GetByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Include(m => m.User).FirstOrDefaultAsync(m => m.UserId == userId);
         }
 
-        public Task<List<Master>> GetMastersWithExperienceGreaterThanAsync(int years)
+        public async Task<List<Master>> GetMastersBySpecializationAsync(string specialization)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Where(m => m.Specialization == specialization).Include(m => m.User).ToListAsync();
         }
 
-        public Task<Master> GetMasterWithUserAsync(int masterId)
+        public async Task<List<Master>> GetMastersWithExperienceGreaterThanAsync(int years)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Where(m => m.ExperienceYears > years).Include(m => m.User).ToListAsync();
+        }
+
+        public async Task<Master> GetMasterWithUserAsync(int masterId)
+        {
+            return await _dbSet.Include(m => m.User).FirstOrDefaultAsync(m => m.MasterId == masterId);
         }
     }
 }

@@ -4,26 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Context;
 using DAL.Entities;
 using DAL.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace DAL.Repositories
 {
-    class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        public Task<User> GetByEmailAsync(string email)
+        public UserRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetUsersByRoleIdAsync(int roleId)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public Task<User> GetUserWithRoleAsync(int userId)
+        public async Task<List<User>> GetUsersByRoleIdAsync(int roleId)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Where(u => u.RoleId == roleId).Include(u => u.Role).ToListAsync();
+        }
+
+        public async Task<User> GetUserWithRoleAsync(int userId)
+        {
+            return await _dbSet.Include(u => u.Role).FirstOrDefaultAsync(u => u.UserId == userId);
         }
     }
 }

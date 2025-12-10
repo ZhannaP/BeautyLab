@@ -4,31 +4,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Context;
 using DAL.Entities;
 using DAL.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace DAL.Repositories
 {
-    class MasterServiceRepository : GenericRepository<MasterService>, IMasterServiceRepository
+    public class MasterServiceRepository : GenericRepository<MasterService>, IMasterServiceRepository
     {
-        public Task<MasterService> GetByMasterAndServiceAsync(int masterId, int serviceId)
+        public MasterServiceRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public Task<List<MasterService>> GetMastersByServiceIdAsync(int serviceId)
+        public async Task<MasterService> GetByMasterAndServiceAsync(int masterId, int serviceId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Include(ms => ms.Master)
+                    .ThenInclude(m => m.User)
+                .Include(ms => ms.Service)
+                .FirstOrDefaultAsync(ms => ms.MasterId == masterId && ms.ServiceId == serviceId);
         }
 
-        public Task<List<MasterService>> GetMasterServicesWithDetailsAsync()
+        public async Task<List<MasterService>> GetMastersByServiceIdAsync(int serviceId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(ms => ms.ServiceId == serviceId)
+                .Include(ms => ms.Master)
+                    .ThenInclude(m => m.User)
+                .Include(ms => ms.Service)
+                .ToListAsync();
         }
 
-        public Task<List<MasterService>> GetServicesByMasterIdAsync(int masterId)
+        public async Task<List<MasterService>> GetServicesByMasterIdAsync(int masterId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(ms => ms.MasterId == masterId)
+                .Include(ms => ms.Master)
+                    .ThenInclude(m => m.User)
+                .Include(ms => ms.Service)
+                .ToListAsync();
+        }
+
+        public async Task<List<MasterService>> GetMasterServicesWithDetailsAsync()
+        {
+            return await _dbSet
+                .Include(ms => ms.Master)
+                    .ThenInclude(m => m.User)
+                .Include(ms => ms.Service)
+                .ToListAsync();
         }
     }
 }

@@ -4,36 +4,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Context;
 using DAL.Entities;
 using DAL.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace DAL.Repositories
 {
-    class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
+    public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
     {
-        public Task<List<Appointment>> GetAppointmentsByClientIdAsync(int clientId)
+        public AppointmentRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public Task<List<Appointment>> GetAppointmentsByDateAsync(DateTime date)
+        public async Task<List<Appointment>> GetAppointmentsByClientIdAsync(int clientId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(a => a.ClientId == clientId)
+                .Include(a => a.Client)
+                    .ThenInclude(c => c.User)
+                .Include(a => a.Master)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Service)
+                .ToListAsync();
         }
 
-        public Task<List<Appointment>> GetAppointmentsByMasterIdAsync(int masterId)
+        public async Task<List<Appointment>> GetAppointmentsByMasterIdAsync(int masterId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(a => a.MasterId == masterId)
+                .Include(a => a.Client)
+                    .ThenInclude(c => c.User)
+                .Include(a => a.Master)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Service)
+                .ToListAsync();
         }
 
-        public Task<List<Appointment>> GetAppointmentsByStatusAsync(string status)
+        public async Task<List<Appointment>> GetAppointmentsByDateAsync(DateTime date)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(a => a.StartTime.Date == date.Date)
+                .Include(a => a.Client)
+                    .ThenInclude(c => c.User)
+                .Include(a => a.Master)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Service)
+                .ToListAsync();
         }
 
-        public Task<Appointment> GetAppointmentWithDetailsAsync(int appointmentId)
+        public async Task<List<Appointment>> GetAppointmentsByStatusAsync(string status)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(a => a.Status == status)
+                .Include(a => a.Client)
+                    .ThenInclude(c => c.User)
+                .Include(a => a.Master)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Service)
+                .ToListAsync();
+        }
+
+        public async Task<Appointment> GetAppointmentWithDetailsAsync(int appointmentId)
+        {
+            return await _dbSet
+                .Include(a => a.Client)
+                    .ThenInclude(c => c.User)
+                .Include(a => a.Master)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Service)
+                .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
         }
     }
 }

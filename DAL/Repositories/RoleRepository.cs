@@ -4,16 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Context;
 using DAL.Entities;
 using DAL.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace DAL.Repositories
 {
-    class RoleRepository : GenericRepository<Role>, IRoleRepository
+    public class RoleRepository : GenericRepository<Role>, IRoleRepository
     {
-        public Task<Role> GetByNameAsync(string roleName)
+        public RoleRepository(BeautyLabContext context) : base(context)
         {
-            throw new NotImplementedException();
+        }
+
+        public async Task<Role> GetByNameAsync(string roleName)
+        {
+            return await _dbSet.FirstOrDefaultAsync(r => r.RoleName == roleName);
         }
     }
 }
