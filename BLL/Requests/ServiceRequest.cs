@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Requests
 {
-    class ServiceRequest
+    public class ServiceRequest
     {
         public string Name { get; set; }
 

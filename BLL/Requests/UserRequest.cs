@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Requests
 {
-    class UserRequest
+    public class UserRequest
     {
         public int RoleId { get; set; }
 

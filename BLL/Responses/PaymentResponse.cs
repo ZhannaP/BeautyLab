@@ -17,5 +17,9 @@ namespace BLL.Responses
         public string Method { get; set; }
 
         public string Status { get; set; }
+
+        public string ClientName { get; set; }
+
+        public string ServiceName { get; set; }
     }
 }
