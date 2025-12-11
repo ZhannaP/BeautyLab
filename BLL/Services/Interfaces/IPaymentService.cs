@@ -11,19 +11,19 @@ namespace BLL.Services.Interfaces
 {
     public interface IPaymentService
     {
-        Task<MasterServiceResponse> GetByIdAsync(int id);
+        Task<PaymentResponse> GetByIdAsync(int id);
 
-        Task<List<MasterServiceResponse>> GetAllAsync();
+        Task<List<PaymentResponse>> GetAllAsync();
 
-        Task<MasterServiceResponse> GetByMasterAndServiceAsync(int masterId, int serviceId);
+        Task<List<PaymentResponse>> GetByAppointmentIdAsync(int appointmentId);
 
-        Task<List<MasterServiceResponse>> GetByMasterIdAsync(int masterId);
+        Task<List<PaymentResponse>> GetByStatusAsync(string status);
 
-        Task<List<MasterServiceResponse>> GetByServiceIdAsync(int serviceId);
+        Task<double> GetTotalPaymentsByAppointmentIdAsync(int appointmentId);
 
-        Task<MasterServiceResponse> CreateAsync(MasterServiceRequest request);
+        Task<PaymentResponse> CreateAsync(PaymentRequest request);
 
-        Task<MasterServiceResponse> UpdateAsync(int id, MasterServiceRequest request);
+        Task<PaymentResponse> UpdateAsync(int id, PaymentRequest request);
 
         Task<bool> DeleteAsync(int id);
     }
