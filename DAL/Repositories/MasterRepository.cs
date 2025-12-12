@@ -37,5 +37,17 @@ namespace DAL.Repositories
         {
             return await _dbSet.Include(m => m.User).FirstOrDefaultAsync(m => m.MasterId == masterId);
         }
+
+        public async Task<List<Master>> GetAllWithUserAsync()
+        {
+            return await _dbSet.Include(m => m.User).ToListAsync();
+        }
+
+        public async Task<Master> GetByIdWithUserAsync(int masterId)
+        {
+            return await _dbSet.Include(m => m.User).FirstOrDefaultAsync(m => m.MasterId == masterId);
+        }
+
+
     }
 }

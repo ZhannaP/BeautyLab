@@ -1,6 +1,8 @@
 ﻿using BLL.Requests;
 using BLL.Responses;
 
+using DAL.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -31,6 +31,9 @@ namespace BLL.Services
         {
             var entity = _mapper.Map<DAL.Entities.MasterService>(request);
             await _repository.AddAsync(entity);
+
+            entity = await _repository.GetWithDetailsAsync(entity.MasterServiceId);
+
             return _mapper.Map<MasterServiceResponse>(entity);
         }
 
@@ -46,7 +49,7 @@ namespace BLL.Services
 
         public async Task<List<MasterServiceResponse>> GetAllAsync()
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetMasterServicesWithDetailsAsync();
             return _mapper.Map<List<MasterServiceResponse>>(entities);
         }
 
@@ -77,8 +80,11 @@ namespace BLL.Services
             _mapper.Map(request, entity);
             await _repository.UpdateAsync(entity);
 
+            entity = await _repository.GetWithDetailsAsync(masterServiceId);
+
             return _mapper.Map<MasterServiceResponse>(entity);
         }
     }
+
 
 }

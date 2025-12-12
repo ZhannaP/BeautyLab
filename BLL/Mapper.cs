@@ -30,10 +30,10 @@ namespace BLL
 
             CreateMap<ClientRequest, Client>();
 
-
             CreateMap<Master, MasterResponse>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
                 .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
+
 
             CreateMap<MasterRequest, Master>();
 
