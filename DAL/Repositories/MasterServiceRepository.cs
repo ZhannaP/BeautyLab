@@ -55,5 +55,14 @@ namespace DAL.Repositories
                 .Include(ms => ms.Service)
                 .ToListAsync();
         }
+
+        public async Task<MasterService> GetWithDetailsAsync(int masterServiceId)
+        {
+            return await _dbSet
+                .Include(ms => ms.Master)
+                    .ThenInclude(m => m.User)
+                .Include(ms => ms.Service)
+                .FirstOrDefaultAsync(ms => ms.MasterServiceId == masterServiceId);
+        }
     }
 }

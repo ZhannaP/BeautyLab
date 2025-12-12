@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    class ServiceRepository : GenericRepository<Service>, IServiceRepository
+    public class ServiceRepository : GenericRepository<Service>, IServiceRepository
     {
         public ServiceRepository(BeautyLabContext context) : base(context)
         {

@@ -53,14 +53,9 @@ namespace BeautyLabWeb
 
             services.AddControllers();
 
-            services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "BeautyLab API",
-                    Version = "v1"
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BeautyLab API", Version = "v1" });
             });
         }
 
@@ -70,11 +65,9 @@ namespace BeautyLabWeb
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "BeautyLab API v1");
-                    c.RoutePrefix = string.Empty; 
                 });
             }
             else
