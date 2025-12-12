@@ -61,21 +61,17 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
-            "Microsoft.Data.Sqlite.Core": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.17, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[5.0.17, )"
             },
-            "SQLite": {
+            "Microsoft.EntityFrameworkCore.Sqlite.Core": {
               "target": "Package",
-              "version": "[3.13.0, )"
+              "version": "[5.0.17, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
