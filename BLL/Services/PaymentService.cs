@@ -29,8 +29,12 @@ namespace BLL.Services
         public async Task<PaymentResponse> CreateAsync(PaymentRequest request)
         {
             var entity = _mapper.Map<Payment>(request);
+
             await _repository.AddAsync(entity);
-            return _mapper.Map<PaymentResponse>(entity);
+
+            var fullEntity = await _repository.GetPaymentWithAppointmentAsync(entity.PaymentId);
+
+            return _mapper.Map<PaymentResponse>(fullEntity);
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -46,7 +50,16 @@ namespace BLL.Services
         public async Task<List<PaymentResponse>> GetAllAsync()
         {
             var entities = await _repository.GetAllAsync();
-            return _mapper.Map<List<PaymentResponse>>(entities);
+
+            var result = new List<PaymentResponse>();
+
+            foreach (var p in entities)
+            {
+                var full = await _repository.GetPaymentWithAppointmentAsync(p.PaymentId);
+                result.Add(_mapper.Map<PaymentResponse>(full));
+            }
+
+            return result;
         }
 
         public async Task<PaymentResponse> GetByIdAsync(int id)
@@ -79,9 +92,14 @@ namespace BLL.Services
                 return null;
 
             _mapper.Map(request, entity);
+
             await _repository.UpdateAsync(entity);
-            return _mapper.Map<PaymentResponse>(entity);
+
+            var fullEntity = await _repository.GetPaymentWithAppointmentAsync(entity.PaymentId);
+
+            return _mapper.Map<PaymentResponse>(fullEntity);
         }
     }
+
 }
 
