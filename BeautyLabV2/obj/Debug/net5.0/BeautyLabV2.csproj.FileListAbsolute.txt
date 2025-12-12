@@ -78,3 +78,9 @@ D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.Extensions.Depende
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.Data.Sqlite.dll
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\SQLitePCLRaw.core.dll
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\runtimes\linux-x64\native\libsqlite3.so
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\runtimes\osx-x64\native\libsqlite3.dylib
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\runtimes\win7-x64\native\sqlite3.dll
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\runtimes\win7-x86\native\sqlite3.dll

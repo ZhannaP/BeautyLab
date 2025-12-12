@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace BeautyLabWeb
+namespace BeautyLabV2
 {
     public class Startup
     {
@@ -28,8 +28,7 @@ namespace BeautyLabWeb
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BeautyLabContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<BeautyLabContext>(options => options.UseSqlite(@"Data Source=D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\beauty_salon.db"));
 
             services.AddAutoMapper(typeof(BLL.MappingProfile));
 
