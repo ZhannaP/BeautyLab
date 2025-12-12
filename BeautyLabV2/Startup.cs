@@ -1,16 +1,21 @@
+using AutoMapper;
+
+using BLL.Services;
+using BLL.Services.Interfaces;
+
+using DAL.Context;
+using DAL.Interfaces;
+using DAL.Repositories;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BeautyLabV2
+namespace BeautyLabWeb
 {
     public class Startup
     {
@@ -21,25 +26,63 @@ namespace BeautyLabV2
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddDbContext<BeautyLabContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(BLL.MappingProfile));
+
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IMasterRepository, MasterRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IMasterServiceRepository, MasterServiceRepository>();
+
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IMasterService, MasterService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IMasterServiceService, MasterServiceService>();
+
+            services.AddControllers();
+
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "BeautyLab API",
+                    Version = "v1"
+                });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BeautyLab API v1");
+                    c.RoutePrefix = string.Empty; 
+                });
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -49,9 +92,7 @@ namespace BeautyLabV2
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
