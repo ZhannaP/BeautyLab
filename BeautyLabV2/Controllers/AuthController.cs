@@ -34,7 +34,6 @@ namespace BeautyLabV2.Controllers
             if (user == null)
                 return Unauthorized("Invalid credentials");
 
-            // ❗ TEMP (replace with hash check later)
             if (user.Password != request.Password)
                 return Unauthorized("Invalid credentials");
 
