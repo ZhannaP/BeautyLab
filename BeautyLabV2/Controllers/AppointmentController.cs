@@ -1,6 +1,7 @@
 ﻿using BLL.Requests;
 using BLL.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace BeautyLabV2.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _service;
@@ -22,6 +25,7 @@ namespace BeautyLabV2.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Client")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AppointmentRequest request)
         {
@@ -29,6 +33,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master,Client")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -36,6 +41,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,6 +52,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master")]
         [HttpGet("client/{clientId:int}")]
         public async Task<IActionResult> GetByClientId(int clientId)
         {
@@ -53,6 +60,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master")]
         [HttpGet("master/{masterId:int}")]
         public async Task<IActionResult> GetByMasterId(int masterId)
         {
@@ -60,6 +68,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master")]
         [HttpGet("status/{status}")]
         public async Task<IActionResult> GetByStatus(string status)
         {
@@ -67,6 +76,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master,Client")]
         [HttpGet("date/{date}")]
         public async Task<IActionResult> GetByDate(DateTime date)
         {
@@ -74,6 +84,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] AppointmentRequest request)
         {
@@ -84,6 +95,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Master")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {

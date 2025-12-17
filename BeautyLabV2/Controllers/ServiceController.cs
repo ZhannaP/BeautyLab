@@ -1,6 +1,7 @@
 ﻿using BLL.Requests;
 using BLL.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace BeautyLabV2.Controllers
     {
         [ApiController]
         [Route("api/[controller]")]
+        [Authorize]
         public class ServiceController : ControllerBase
         {
             private readonly IServiceService _service;
@@ -24,7 +26,7 @@ namespace BeautyLabV2.Controllers
                 _service = service;
             }
 
-            // GET: api/service
+            [AllowAnonymous]
             [HttpGet]
             public async Task<IActionResult> GetAll()
             {
@@ -32,7 +34,7 @@ namespace BeautyLabV2.Controllers
                 return Ok(result);
             }
 
-            // GET: api/service/{id}
+            [AllowAnonymous]
             [HttpGet("{id:int}")]
             public async Task<IActionResult> GetById(int id)
             {
@@ -43,7 +45,7 @@ namespace BeautyLabV2.Controllers
                 return Ok(result);
             }
 
-            // GET: api/service/by-name/{name}
+            [AllowAnonymous]
             [HttpGet("by-name/{name}")]
             public async Task<IActionResult> GetByName(string name)
             {
@@ -54,7 +56,7 @@ namespace BeautyLabV2.Controllers
                 return Ok(result);
             }
 
-            // GET: api/service/max-duration/{duration}
+            [AllowAnonymous]
             [HttpGet("max-duration/{duration:int}")]
             public async Task<IActionResult> GetByMaxDuration(int duration)
             {
@@ -62,7 +64,7 @@ namespace BeautyLabV2.Controllers
                 return Ok(result);
             }
 
-            // POST: api/service
+            [Authorize(Roles = "Admin")]
             [HttpPost]
             public async Task<IActionResult> Create([FromBody] ServiceRequest request)
             {
@@ -74,7 +76,7 @@ namespace BeautyLabV2.Controllers
                 return CreatedAtAction(nameof(GetById), new { id = created.ServiceId }, created);
             }
 
-            // PUT: api/service/{id}
+            [Authorize(Roles = "Admin")]
             [HttpPut("{id:int}")]
             public async Task<IActionResult> Update(int id, [FromBody] ServiceRequest request)
             {
@@ -88,7 +90,7 @@ namespace BeautyLabV2.Controllers
                 return Ok(result);
             }
 
-            // DELETE: api/service/{id}
+            [Authorize(Roles = "Admin")]
             [HttpDelete("{id:int}")]
             public async Task<IActionResult> Delete(int id)
             {

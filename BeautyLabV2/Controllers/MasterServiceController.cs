@@ -2,6 +2,7 @@
 using BLL.Responses;
 using BLL.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,7 @@ namespace BeautyLabV2.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<MasterServiceResponse>>> GetAll()
         {
@@ -30,6 +32,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<MasterServiceResponse>> GetById(int id)
         {
@@ -38,6 +41,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("byMaster/{masterId}")]
         public async Task<ActionResult<List<MasterServiceResponse>>> GetByMasterId(int masterId)
         {
@@ -45,6 +49,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("byService/{serviceId}")]
         public async Task<ActionResult<List<MasterServiceResponse>>> GetByServiceId(int serviceId)
         {
@@ -52,6 +57,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<MasterServiceResponse>> Create([FromBody] MasterServiceRequest request)
         {
@@ -59,6 +65,7 @@ namespace BeautyLabV2.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.MasterServiceId }, result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<MasterServiceResponse>> Update(int id, [FromBody] MasterServiceRequest request)
         {
@@ -67,6 +74,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

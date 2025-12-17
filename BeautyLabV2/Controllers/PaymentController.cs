@@ -1,6 +1,7 @@
 ﻿using BLL.Requests;
 using BLL.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +14,18 @@ namespace BeautyLabV2.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    [Authorize]
+    public class PaymentController : ControllerBase
     {
-        private readonly IClientService _service;
+        private readonly IPaymentService _service;
 
-        public ClientController(IClientService service)
+        public PaymentController(IPaymentService service)
         {
             _service = service;
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAllAsync();
@@ -30,42 +33,54 @@ namespace BeautyLabV2.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _service.GetByIdAsync(id);
             if (result == null)
                 return NotFound();
+
             return Ok(result);
         }
 
-        [HttpGet("by-user/{userId:int}")]
-        public async Task<IActionResult> GetByUserId(int userId)
+        [HttpGet("by-appointment/{appointmentId:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetByAppointmentId(int appointmentId)
         {
-            var result = await _service.GetByUserIdAsync(userId);
-            if (result == null)
-                return NotFound();
+            var result = await _service.GetByAppointmentIdAsync(appointmentId);
             return Ok(result);
         }
 
-        [HttpGet("with-notes")]
-        public async Task<IActionResult> GetClientsWithNotes()
+        [HttpGet("status/{status}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetByStatus(string status)
         {
-            var result = await _service.GetClientsWithNotesAsync();
+            var result = await _service.GetByStatusAsync(status);
             return Ok(result);
+        }
+
+        [HttpGet("total-by-appointment/{appointmentId:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetTotalByAppointmentId(int appointmentId)
+        {
+            var total = await _service.GetTotalPaymentsByAppointmentIdAsync(appointmentId);
+            return Ok(total);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ClientRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create([FromBody] PaymentRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var created = await _service.CreateAsync(request);
-            return CreatedAtAction(nameof(GetById), new { id = created.ClientId }, created);
+            return CreatedAtAction(nameof(GetById), new { id = created.PaymentId }, created);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ClientRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(int id, [FromBody] PaymentRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -78,6 +93,7 @@ namespace BeautyLabV2.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _service.DeleteAsync(id);

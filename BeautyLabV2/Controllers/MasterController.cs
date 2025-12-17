@@ -1,6 +1,7 @@
 ﻿using BLL.Requests;
 using BLL.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,12 @@ namespace BeautyLabV2.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PaymentController : ControllerBase
+    [Authorize]
+    public class MasterController : ControllerBase
     {
-        private readonly IPaymentService _service;
+        private readonly IMasterService _service;
 
-        public PaymentController(IPaymentService service)
+        public MasterController(IMasterService service)
         {
             _service = service;
         }
@@ -35,43 +37,46 @@ namespace BeautyLabV2.Controllers
             var result = await _service.GetByIdAsync(id);
             if (result == null)
                 return NotFound();
-
             return Ok(result);
         }
 
-        [HttpGet("by-appointment/{appointmentId:int}")]
-        public async Task<IActionResult> GetByAppointmentId(int appointmentId)
+        [HttpGet("by-user/{userId:int}")]
+        public async Task<IActionResult> GetByUserId(int userId)
         {
-            var result = await _service.GetByAppointmentIdAsync(appointmentId);
+            var result = await _service.GetByUserIdAsync(userId);
+            if (result == null)
+                return NotFound();
             return Ok(result);
         }
 
-        [HttpGet("status/{status}")]
-        public async Task<IActionResult> GetByStatus(string status)
+        [HttpGet("by-specialization/{specialization}")]
+        public async Task<IActionResult> GetBySpecialization(string specialization)
         {
-            var result = await _service.GetByStatusAsync(status);
+            var result = await _service.GetBySpecializationAsync(specialization);
             return Ok(result);
         }
 
-        [HttpGet("total-by-appointment/{appointmentId:int}")]
-        public async Task<IActionResult> GetTotalByAppointmentId(int appointmentId)
+        [HttpGet("experience-greater-than/{years:int}")]
+        public async Task<IActionResult> GetWithExperienceGreaterThan(int years)
         {
-            var total = await _service.GetTotalPaymentsByAppointmentIdAsync(appointmentId);
-            return Ok(total);
+            var result = await _service.GetWithExperienceGreaterThanAsync(years);
+            return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PaymentRequest request)
+        public async Task<IActionResult> Create([FromBody] MasterRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var created = await _service.CreateAsync(request);
-            return CreatedAtAction(nameof(GetById), new { id = created.PaymentId }, created);
+            return CreatedAtAction(nameof(GetById), new { id = created.MasterId }, created);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] PaymentRequest request)
+        public async Task<IActionResult> Update(int id, [FromBody] MasterRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -83,6 +88,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {

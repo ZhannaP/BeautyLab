@@ -17,15 +17,7 @@ D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Caching.Abstractions.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Caching.Memory.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.Identity.Client.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
@@ -34,7 +26,6 @@ D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.Op
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\MySql.Data.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\MySqlConnector.dll
-D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Pomelo.EntityFrameworkCore.MySql.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
 D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
@@ -74,3 +65,5 @@ D:\BeautyLab\BeautyLab\BLL\obj\Debug\net5.0\BLL.dll
 D:\BeautyLab\BeautyLab\BLL\obj\Debug\net5.0\ref\BLL.dll
 D:\BeautyLab\BeautyLab\BLL\obj\Debug\net5.0\BLL.pdb
 D:\BeautyLab\BeautyLab\BLL\obj\Debug\net5.0\BLL.genruntimeconfig.cache
+D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\BeautyLab\BeautyLab\BLL\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll

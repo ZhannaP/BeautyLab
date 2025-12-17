@@ -19,7 +19,6 @@ D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.IdentityModel.Toke
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.OpenApi.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\MySql.Data.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\MySqlConnector.dll
-D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Pomelo.EntityFrameworkCore.MySql.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -123,3 +122,5 @@ D:\BeautyLab\BeautyLab\BeautyLabV2\obj\Debug\net5.0\BeautyLabV2.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\obj\Debug\net5.0\ref\BeautyLabV2.dll
 D:\BeautyLab\BeautyLab\BeautyLabV2\obj\Debug\net5.0\BeautyLabV2.pdb
 D:\BeautyLab\BeautyLab\BeautyLabV2\obj\Debug\net5.0\BeautyLabV2.genruntimeconfig.cache
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\BeautyLab\BeautyLab\BeautyLabV2\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll

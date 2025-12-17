@@ -1,6 +1,7 @@
 ﻿using BLL.Requests;
 using BLL.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace BeautyLabV2.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -22,6 +24,7 @@ namespace BeautyLabV2.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UserRequest request)
         {
@@ -36,6 +39,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,6 +50,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("email/{email}")]
         public async Task<IActionResult> GetByEmail(string email)
         {
@@ -56,6 +61,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("role/{roleId:int}")]
         public async Task<IActionResult> GetByRoleId(int roleId)
         {
@@ -63,6 +69,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] UserRequest request)
         {
@@ -73,6 +80,7 @@ namespace BeautyLabV2.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
