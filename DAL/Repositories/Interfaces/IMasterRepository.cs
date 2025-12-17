@@ -17,5 +17,9 @@ namespace DAL.Interfaces
         Task<List<Master>> GetMastersWithExperienceGreaterThanAsync(int years);
 
         Task<Master> GetMasterWithUserAsync(int masterId);
+
+        Task<List<Master>> GetAllWithUserAsync();
+
+        Task<Master> GetByIdWithUserAsync(int masterId);
     }
 }

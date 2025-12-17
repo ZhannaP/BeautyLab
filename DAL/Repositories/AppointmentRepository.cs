@@ -66,7 +66,18 @@ namespace DAL.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Appointment> GetAppointmentWithDetailsAsync(int appointmentId)
+        public async Task<Appointment> GetAppointmentWithDetailsAsync(int id)
+        {
+            return await _context.Appointments
+                .Include(a => a.Client)
+                    .ThenInclude(c => c.User)
+                .Include(a => a.Master)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Service)
+                .FirstOrDefaultAsync(a => a.AppointmentId == id);
+        }
+
+        public override async Task<List<Appointment>> GetAllAsync()
         {
             return await _dbSet
                 .Include(a => a.Client)
@@ -74,7 +85,7 @@ namespace DAL.Repositories
                 .Include(a => a.Master)
                     .ThenInclude(m => m.User)
                 .Include(a => a.Service)
-                .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
+                .ToListAsync();
         }
     }
 }

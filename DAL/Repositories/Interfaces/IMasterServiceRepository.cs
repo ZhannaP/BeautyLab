@@ -10,9 +10,15 @@ namespace DAL.Interfaces
 {
     public interface IMasterServiceRepository : IGenericRepository<MasterService>
     {
-        Task<List<MasterService>> GetServicesByMasterIdAsync(int masterId);
-        Task<List<MasterService>> GetMastersByServiceIdAsync(int serviceId);
         Task<MasterService> GetByMasterAndServiceAsync(int masterId, int serviceId);
+
+        Task<List<MasterService>> GetMastersByServiceIdAsync(int serviceId);
+
+        Task<List<MasterService>> GetServicesByMasterIdAsync(int masterId);
+
         Task<List<MasterService>> GetMasterServicesWithDetailsAsync();
+
+        Task<MasterService> GetWithDetailsAsync(int masterServiceId);
     }
+
 }

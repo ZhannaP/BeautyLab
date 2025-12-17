@@ -32,16 +32,14 @@ namespace DAL.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = "Name=ConnectionString";
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 34));
 
-            optionsBuilder.UseMySql(connectionString, serverVersion);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Appointment>(entity =>
             {
+                modelBuilder.Entity<Appointment>().ToTable("Appointment");
                 entity.HasKey(e => e.AppointmentId);
 
                 entity.Property(e => e.Status)
@@ -66,6 +64,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<Client>(entity =>
             {
+                modelBuilder.Entity<Client>().ToTable("Client");
                 entity.HasKey(e => e.ClientId);
 
                 entity.Property(e => e.Notes)
@@ -80,6 +79,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<Master>(entity =>
             {
+                modelBuilder.Entity<Master>().ToTable("Master");
                 entity.HasKey(e => e.MasterId);
 
                 entity.Property(e => e.Specialization)
@@ -94,6 +94,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<MasterService>(entity =>
             {
+                modelBuilder.Entity<MasterService>().ToTable("MasterService");
                 entity.HasKey(e => e.MasterServiceId);
 
                 entity.HasOne(ms => ms.Master)
@@ -107,6 +108,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<Payment>(entity =>
             {
+                modelBuilder.Entity<Payment>().ToTable("Payment");
                 entity.HasKey(e => e.PaymentId);
 
                 entity.Property(e => e.Method)
@@ -124,6 +126,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<Role>(entity =>
             {
+                modelBuilder.Entity<Role>().ToTable("Role");
                 entity.HasKey(e => e.RoleId);
 
                 entity.Property(e => e.RoleName)
@@ -133,6 +136,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<Service>(entity =>
             {
+                modelBuilder.Entity<Service>().ToTable("Service");
                 entity.HasKey(e => e.ServiceId);
 
                 entity.Property(e => e.Name)
@@ -146,6 +150,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<User>(entity =>
             {
+                modelBuilder.Entity<User>().ToTable("User");
                 entity.HasKey(e => e.UserId);
 
                 entity.Property(e => e.FirstName)

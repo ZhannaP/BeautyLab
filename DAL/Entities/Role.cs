@@ -9,6 +9,7 @@ namespace DAL.Entities
     public class Role : BaseEntity.BaseEntity
     {
         public int RoleId { get; set; }
+
         public string RoleName { get; set; }
     }
 }
